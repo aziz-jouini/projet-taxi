@@ -1,0 +1,19 @@
+<div class="sidebar">
+    <div class="user-info">
+      <div class="profile-pic">
+        <i class="fas fa-user" aria-hidden="true"></i>
+      </div>
+      <p class="welcome-message">Bienvenue, {{ user.firstName }} {{ user.lastName }}!</p>
+      <p>{{ user.derniere_connexion}}</p>
+      <a routerLink="/profile" class="profile-link">
+        <i class="fas fa-user-circle"></i> Consulter votre profil
+      </a>
+    </div>
+  
+    <div *ngIf="user.role === 'admin'" class="admin-section">
+      <a routerLink="/manage-users" class="admin-link">
+        <i class="fas fa-users-cog"></i> Gestion des utilisateurs
+      </a>
+    </div>
+  </div>
+  

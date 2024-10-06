@@ -1,0 +1,27 @@
+<div class="message-container">
+  <div class="animated-message">
+    "Votre voiture autonome est là pour vous servir : relaxez-vous, vous êtes le vrai conducteur!"
+  </div>
+</div>
+
+<div class="login-container">
+  <h1 class="welcome-title">Bienvenue sur notre application</h1>
+  <p class="login-prompt">Si vous n'avez pas de compte, <a routerLink="/inscription">inscrivez-vous ici</a>.</p>
+
+  <div class="content-wrapper">
+    <img src="assets/taxi.png" alt="Image de taxi" class="login-image" />
+    <div class="login-form">
+      <div class="form-group">
+        <label for="email">Adresse email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" [(ngModel)]="mot_de_passe" required />
+      </div>
+      <button (click)="onSubmit()">Se connecter</button>
+      
+
+    </div>
+  </div>
+</div>

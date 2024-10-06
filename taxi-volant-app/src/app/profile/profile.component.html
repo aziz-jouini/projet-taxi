@@ -1,0 +1,79 @@
+<div class="container">
+    <app-sidebar></app-sidebar>
+    <form (ngSubmit)="onSubmit()" #profileForm="ngForm" class="profile-form">
+      <div class="form-group">
+        <label for="firstName">Prénom</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          [(ngModel)]="user.firstName"
+          required
+          class="form-control"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Nom</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          [(ngModel)]="user.lastName"
+          required
+          class="form-control"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="user.email"
+          required
+          class="form-control"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="user.password"
+          class="form-control"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="user.confirmPassword"
+          class="form-control"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select
+          id="type"
+          name="type"
+          [(ngModel)]="user.type"
+          required
+          class="form-control"
+        >
+          <option value="proprietaire">Propriétaire</option>
+          <option value="client">Client</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+  </div>
+  

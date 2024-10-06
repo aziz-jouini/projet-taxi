@@ -1,0 +1,63 @@
+/* Style général de la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Prendre toute la hauteur de l'écran */
+    overflow: hidden;
+  }
+  
+  /* Style pour le composant sidebar */
+  app-sidebar {
+    width: 30px;
+    color: white;
+    height: calc(100% - 40px); /* Prendre toute la hauteur de la fenêtre moins la navbar */
+    position: fixed;
+    left: 0px; /* Légère marge à gauche de la page */
+    top: 0px; /* Commence après la navbar */
+    padding-top: 0px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style pour le composant navbar */
+  app-navbar {
+    width: calc(100% - 30px); /* Prendre toute la largeur, en laissant de la place pour la sidebar */
+    background-color: #343a40; /* Couleur gris foncé */
+    color: white;
+    padding: 5px 20px;
+    position: fixed;
+    top: 0;
+    left: 30px; /* Commence après la sidebar */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Accentuer légèrement l'ombre */
+  }
+  
+  /* Nom de l'application dans la navbar */
+  .app-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffc107; /* Couleur jaune pour démarquer le titre */
+  }
+  
+  /* Bouton de déconnexion dans la navbar */
+  .logout-button {
+    background-color: #28a745; /* Couleur verte */
+    color: white; /* Texte en blanc */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Effet de survol pour le bouton de déconnexion */
+  .logout-button:hover {
+    background-color: #218838; /* Couleur verte plus foncée au survol */
+  }
+  
