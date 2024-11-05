@@ -1,19 +1,170 @@
 <div class="sidebar">
-    <div class="user-info">
-      <div class="profile-pic">
-        <i class="fas fa-user" aria-hidden="true"></i>
-      </div>
-      <p class="welcome-message">Bienvenue, {{ user.firstName }} {{ user.lastName }}!</p>
-      <p>{{ user.derniere_connexion}}</p>
-      <a routerLink="/profile" class="profile-link">
-        <i class="fas fa-user-circle"></i> Consulter votre profil
-      </a>
+  <div class="user-info">
+    <!-- Informations utilisateur -->
+    <div class="profile-pic">
+      <img src="assets/icon4.png" alt="Profile Picture" class="profile-icon" />
     </div>
-  
-    <div *ngIf="user.role === 'admin'" class="admin-section">
-      <a routerLink="/manage-users" class="admin-link">
-        <i class="fas fa-users-cog"></i> Gestion des utilisateurs
-      </a>
+
+    <p class="welcome-message">Bienvenue, {{ user.firstName }} {{ user.lastName }}!</p>
+    <p>Dernière connexion : {{ user.derniere_connexion }}</p>
+    <a routerLink="/profile" class="profile-link">
+      <i class="fas fa-user-circle"></i> Consulter votre profil
+    </a>
+  </div>
+
+  <div *ngIf="user.role.toLowerCase() === 'admin'" class="admin-section">
+    <a routerLink="/utilisateurs" class="admin-link">
+      <i class="fas fa-users"></i> Gestion Utilisateurs
+    </a>
+    <a routerLink="/taxi" class="admin-link">
+      <i class="fas fa-taxi"></i> Gestion Taxi
+    </a>
+  </div>
+
+  <div *ngIf="user.role.toLowerCase() === 'client'" class="client-section">
+    <a href="#" class="client-link" (click)="openReservationsPopup()">
+      <i class="fas fa-calendar-alt"></i> Mes Réservations
+    </a>
+  </div>
+
+  <!-- Popup pour les réservations -->
+  <div *ngIf="isReservationsPopupOpen" class="popup-overlay">
+    <div class="popup-container">
+      <div class="popup-header">
+        <h2>Mes Réservations</h2>
+        <button class="close-btn" (click)="closeReservationsPopup()">×</button>
+      </div>
+      <div class="popup-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Départ</th>
+              <th>Destination</th>
+              <th>Distance (km)</th>
+              <th>Durée</th>
+              <th>Heure de départ</th>
+              <th>Heure d'arrivée</th>
+              <th>Coût (€)</th>
+              <th>Météo</th>
+              <th>Date de réservation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reservation of reservations">
+              <td>{{ reservation.userLocation }}</td>
+              <td>{{ reservation.destination }}</td>
+              <td>{{ reservation.distance }}</td>
+              <td>{{ reservation.travelTime }}</td>
+              <td>{{ getDateFromTime(reservation.departureTime) | date:'shortTime' }}</td>
+<td>{{ getDateFromTime(reservation.arrivalTime) | date:'shortTime' }}</td>
+
+              <td>{{ reservation.cost }}</td>
+              <td>{{ reservation.weather }}</td>
+              <td>{{ reservation.createdAt }}</td>
+            </tr>
+            
+            <tr *ngIf="reservations.length === 0">
+              <td colspan="9">Aucune réservation trouvée.</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+      </div>
+      <div class="popup-footer">
+        <button class="primary-btn" (click)="closeReservationsPopup()">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Propriétaire -->
+  <div *ngIf="user.role.toLowerCase() === 'proprietaire'" class="admin-section">
+    <a href="#" class="admin-link" (click)="openPurchasedTaxisPopup()">
+      <i class="fas fa-list-alt"></i> Liste des Taxis
+    </a>
+  </div>
+
+  <div *ngIf="isPurchasedTaxisPopupOpen" class="popup-overlay">
+    <div class="popup-container">
+      <div class="popup-header">
+        <h2>Mes Taxis Achetés</h2>
+        <button class="close-btn" (click)="closePurchasedTaxisPopup()">×</button>
+      </div>
+      <div class="popup-body">
+        <ul class="taxi-list">
+          <li *ngFor="let taxi of purchasedTaxis" class="taxi-item">
+            <div class="taxi-info">
+              <p class="taxi-name">{{ taxi.nom }}</p>
+              <p class="taxi-matricule">Matricule: {{ taxi.matricule }}</p>
+              <p class="taxi-prix">{{ taxi.prix }} DT</p>
+              <p class="taxi-date">Acheté le: {{ taxi.date_achat }}</p>
+            </div>
+            <div class="taxi-actions">
+              <button 
+              class="primary-btn" 
+              *ngIf="!taxi.reserved" 
+              (click)="reserveTaxi(taxi.id)">Réserver</button>
+
+            <button 
+              class="secondary-btn" 
+              *ngIf="taxi.reserved" 
+              (click)="cancelReservation(taxi.id)">Annuler Réservation</button>
+              <button class="primary-btn" (click)="viewReservationsByTaxi(taxi.id)">Voir les Réservations</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="popup-footer">
+        <button class="primary-btn" (click)="closePurchasedTaxisPopup()">Fermer</button>
+      </div>
     </div>
   </div>
   
+  <!-- Popup pour les réservations par taxi -->
+  <div *ngIf="isTaxiReservationsPopupOpen" class="popup-overlay">
+    <div class="popup-container">
+      <div class="popup-header">
+        <h2>Réservations du Taxi</h2>
+        <button class="close-btn" (click)="closeTaxiReservationsPopup()">×</button>
+      </div>
+      <div class="popup-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Départ</th>
+              <th>Destination</th>
+              <th>Distance (km)</th>
+              <th>Durée</th>
+              <th>Heure de départ</th>
+              <th>Heure d'arrivée</th>
+              <th>Coût (€)</th>
+              <th>Météo</th>
+              <th>Date de réservation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reservation of taxiReservations">
+              <td>{{ reservation.userLocation }}</td>
+              <td>{{ reservation.destination }}</td>
+              <td>{{ reservation.distance }}</td>
+              <td>{{ reservation.travelTime }}</td>
+              <td>{{ getDateFromTime(reservation.departureTime) | date:'shortTime' }}</td>
+              <td>{{ getDateFromTime(reservation.arrivalTime) | date:'shortTime' }}</td>
+              <td>{{ reservation.travelCost }}</td>
+              <td>{{ reservation.weather }}</td>
+              <td>{{ reservation.createdAt | date }}</td>
+            </tr>
+            <tr *ngIf="taxiReservations.length === 0">
+              <td colspan="9">Aucune réservation trouvée pour ce taxi.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="popup-footer">
+        <button class="primary-btn" (click)="closeTaxiReservationsPopup()">Fermer</button>
+      </div>
+    </div>
+  </div>
+   <!-- Admin section with reservations link -->
+   
+</div>

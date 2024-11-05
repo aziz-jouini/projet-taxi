@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Espace entre le contenu gauche et droit */
+    align-items: center; /* Centrer verticalement */
+  }
+  
+  .icon-container {
+    display: flex; /* Utiliser Flexbox pour centrer */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+  }
+  
+  .icon {
+    width: 40px; /* Ajustez la taille de l'icône */
+    height: auto; /* Garder les proportions */
+    margin-right: 10px; /* Espacement à droite de l'icône */
+  }
+  
+  .navbar-nav {
+    margin-left: auto; /* Pousse les éléments de la navbar vers la droite */
+  }
+  

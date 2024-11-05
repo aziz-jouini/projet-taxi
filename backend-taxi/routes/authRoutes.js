@@ -35,7 +35,6 @@ router.post('/register', async (req, res) => {
 });
 
 // Route pour connexion classique
-// Route pour connexion classique
 router.post('/login', async (req, res) => {
   const { email, mot_de_passe } = req.body;
 
@@ -75,6 +74,7 @@ router.post('/login', async (req, res) => {
     });
   });
 });
+
 
 
 // Route pour vérifier l'utilisateur Google
@@ -125,7 +125,7 @@ router.get('/me', authMiddleware, (req, res) => {
 });
 // Route pour mettre à jour les informations de l'utilisateur
 router.put('/update', authMiddleware, async (req, res) => {
-  const   = req.body;
+  const { nom, prenom, email, mot_de_passe, type } = req.body;
   
   if (!nom || !prenom || !email || !type) {
     return res.status(400).json({ message: 'Tous les champs sauf le mot de passe sont requis.' });
@@ -156,6 +156,169 @@ router.put('/update', authMiddleware, async (req, res) => {
     console.error('Erreur serveur:', error);
     res.status(500).json({ message: 'Erreur serveur.' });
   }
+});
+
+// Route pour réinitialiser le mot de passe
+router.post('/reset-password', async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  const query = 'SELECT * FROM users WHERE email = ?';
+  db.execute(query, [email], async (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: 'Erreur lors de la recherche de l’utilisateur.' });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+    }
+
+    try {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      const updateQuery = 'UPDATE users SET mot_de_passe = ? WHERE email = ?';
+      db.execute(updateQuery, [hashedPassword, email], (err, results) => {
+        if (err) {
+          return res.status(500).json({ message: 'Erreur lors de la mise à jour du mot de passe.' });
+        }
+        res.json({ message: 'Mot de passe réinitialisé avec succès.' });
+      });
+    } catch (error) {
+      console.error('Erreur lors du hachage du mot de passe:', error);
+      res.status(500).json({ message: 'Erreur lors du changement de mot de passe.' });
+    }
+  });
+});
+
+
+router.post('/acheter-taxi', async (req, res) => {
+  const { proprietaire_id, taxi_id } = req.body;
+
+  // Vérifier si l'utilisateur est un propriétaire
+  const queryUser = 'SELECT * FROM users WHERE id = ? AND type = "proprietaire"';
+  db.execute(queryUser, [proprietaire_id], (err, results) => {
+    if (err || results.length === 0) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé ou n\'est pas un propriétaire.' });
+    }
+
+    // Vérifier si la taxi existe
+    const queryTaxi = 'SELECT * FROM taxi WHERE id = ?';
+    db.execute(queryTaxi, [taxi_id], (err, results) => {
+      if (err || results.length === 0) {
+        return res.status(404).json({ message: 'Taxi non trouvée.' });
+      }
+
+      // Enregistrer l'achat dans proprietaires_taxis
+      const queryAchat = 'INSERT INTO proprietaires_taxis (proprietaire_id, taxi_id) VALUES (?, ?)';
+      db.execute(queryAchat, [proprietaire_id, taxi_id], (err, results) => {
+        if (err) {
+          return res.status(500).json({ message: 'Erreur lors de l\'achat du taxi.' });
+        }
+        res.status(201).json({ message: 'Taxi achetée avec succès.' });
+      });
+    });
+  });
+});
+// Route pour récupérer la liste des taxis achetés par un propriétaire
+router.get('/mes-taxis', authMiddleware, (req, res) => {
+  const proprietaire_id = req.user.id; // L'ID du propriétaire connecté est récupéré depuis le middleware d'authentification
+
+  // Requête SQL corrigée pour récupérer la liste des taxis achetés par le propriétaire
+  const query = `
+    SELECT taxi.*, proprietaires_taxis.date_achat
+    FROM taxi 
+    INNER JOIN proprietaires_taxis ON taxi.id = proprietaires_taxis.taxi_id
+    WHERE proprietaires_taxis.proprietaire_id = ?`;
+
+  db.execute(query, [proprietaire_id], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des taxis achetés:', err);
+      return res.status(500).json({ message: 'Erreur lors de la récupération des taxis achetés.' });
+    }
+
+    res.json(results);
+  });
+});
+// Route pour mettre un taxi en réservation
+router.post('/reserver-taxi', authMiddleware, (req, res) => {
+  const { taxi_id } = req.body;
+  const proprietaire_id = req.user.id; // ID du propriétaire connecté
+
+  // Vérifier si le propriétaire possède le taxi
+  const queryCheckOwnership = `
+    SELECT * FROM proprietaires_taxis 
+    WHERE proprietaire_id = ? AND taxi_id = ?`;
+  
+  db.execute(queryCheckOwnership, [proprietaire_id, taxi_id], (err, results) => {
+    if (err || results.length === 0) {
+      return res.status(404).json({ message: 'Vous ne possédez pas ce taxi.' });
+    }
+
+    // Mettre à jour l'état du taxi en "en réservation"
+    const queryReserveTaxi = `
+      UPDATE proprietaires_taxis 
+      SET en_reservation = TRUE 
+      WHERE proprietaire_id = ? AND taxi_id = ?`;
+
+    db.execute(queryReserveTaxi, [proprietaire_id, taxi_id], (err, results) => {
+      if (err) {
+        console.error('Erreur lors de la réservation:', err);
+        return res.status(500).json({ message: 'Erreur lors de la mise en réservation.' });
+      }
+
+      res.status(200).json({ message: 'Taxi mis en réservation avec succès.' });
+    });
+  });
+});
+
+// Route pour annuler la réservation d’un taxi
+router.post('/annuler-reservation', authMiddleware, (req, res) => {
+  const { taxi_id } = req.body;
+  const proprietaire_id = req.user.id;
+
+  const queryCancelReservation = `
+    UPDATE proprietaires_taxis 
+    SET en_reservation = FALSE 
+    WHERE proprietaire_id = ? AND taxi_id = ?`;
+
+  db.execute(queryCancelReservation, [proprietaire_id, taxi_id], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de l\'annulation:', err);
+      return res.status(500).json({ message: 'Erreur lors de l\'annulation de la réservation.' });
+    }
+
+    res.status(200).json({ message: 'Réservation annulée avec succès.' });
+  });
+});
+
+// Route pour récupérer la liste de tous les taxis disponibles
+router.get('/taxis-disponibles', (req, res) => {
+  const query = `
+    SELECT 
+    taxi.*, 
+    proprietaires_taxis.proprietaire_id,
+    proprietaires_taxis.en_reservation, 
+    users.nom AS proprietaire_nom,  -- Assuming 'nom' is the column for the owner's last name in the users table
+    users.prenom AS proprietaire_prenom
+   
+FROM 
+    taxi 
+LEFT JOIN 
+    proprietaires_taxis ON taxi.id = proprietaires_taxis.taxi_id 
+LEFT JOIN 
+    users ON proprietaires_taxis.proprietaire_id = users.id  -- Assuming 'id' is the primary key in the users table
+WHERE 
+    proprietaires_taxis.en_reservation = 1;
+
+  `;
+
+  db.execute(query, (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des taxis disponibles:', err);
+      return res.status(500).json({ message: 'Erreur lors de la récupération des taxis disponibles.' });
+    }
+
+    res.json(results);
+  });
+  
 });
 
 module.exports = router;

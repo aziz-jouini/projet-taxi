@@ -1,0 +1,161 @@
+/* Style général de la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Prendre toute la hauteur de l'écran */
+    overflow: hidden;
+  }
+  
+  /* Style pour le composant sidebar */
+  app-sidebar {
+    width: 30px;
+    color: white;
+    height: calc(100% - 40px); /* Prendre toute la hauteur de la fenêtre moins la navbar */
+    position: fixed;
+    left: 0px; /* Légère marge à gauche de la page */
+    top: 0px; /* Commence après la navbar */
+    padding-top: 0px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style pour le composant navbar */
+  app-navbar {
+    width: calc(100% - 30px); /* Prendre toute la largeur, en laissant de la place pour la sidebar */
+    background-color: #343a40; /* Couleur gris foncé */
+    color: white;
+    padding: 5px 20px;
+    position: fixed;
+    top: 0;
+    left: 289; /* Évite la marge à gauche pour couvrir toute la largeur disponible */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Accentuer légèrement l'ombre */
+  }
+  
+  /* Nom de l'application dans la navbar */
+  .app-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffc107; /* Couleur jaune pour démarquer le titre */
+  }
+  
+  /* Bouton de déconnexion dans la navbar */
+  .logout-button {
+    background-color: #28a745; /* Couleur verte */
+    color: white; /* Texte en blanc */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Effet de survol pour le bouton de déconnexion */
+  .logout-button:hover {
+    background-color: #218838; /* Couleur verte plus foncée au survol */
+  }
+  
+  /* Conteneur principal de la page */
+  .page-content {
+    margin-left: 100px; /* Espace pour la sidebar */
+    margin-top: 60px; /* Espace en dessous de la navbar */
+    display: flex;
+    justify-content: center; /* Centrer le contenu horizontalement */
+    align-items: center; /* Centrer le contenu verticalement */
+    width: calc(100% - 130px); /* Largeur restante */
+    height: calc(100% - 80px); /* Hauteur restante */
+    overflow-y: auto;
+  }
+  
+  /* Conteneur pour les utilisateurs */
+  .container {
+    background-color: #ffffff; /* Fond blanc pour bien démarquer le contenu */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Légère ombre pour démarquer le conteneur */
+    max-width: 800px; /* Limiter la largeur du contenu pour le centrer */
+    width: 100%;
+  }
+  
+  /* Style du titre */
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center; /* Centrer le titre */
+  }
+  
+  /* Style du tableau */
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .user-table th,
+  .user-table td {
+    border: 1px solid #ced4da; /* Bordure grise légère */
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #f2f2f2; /* Fond gris clair pour les en-têtes */
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternance de couleur pour les lignes */
+  }
+  
+  .user-table tr:hover {
+    background-color: #f1f1f1; /* Effet sur survol de ligne */
+  }
+  
+  /* Message lorsque aucun utilisateur n'est trouvé */
+  div[ngIf="users.length === 0"] {
+    color: #dc3545; /* Texte en rouge */
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center; /* Centrer le message */
+  }
+  
+  /* Style de la liste des utilisateurs */
+  ul {
+    list-style-type: none; /* Enlever les puces de la liste */
+    padding: 0;
+  }
+  
+  li {
+    background-color: #ffffff;
+    border: 1px solid #ced4da; /* Bordure grise légère */
+    padding: 10px;
+    margin-bottom: 10px; /* Espacement entre chaque utilisateur */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style des boutons */
+  button {
+    background-color: #17a2b8; /* Couleur cyan */
+    color: white; /* Texte en blanc */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Effet de survol pour les boutons */
+  button:hover {
+    background-color: #138496; /* Couleur cyan plus foncée au survol */
+  }
+  

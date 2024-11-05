@@ -3,36 +3,5 @@
 <div class="page-content">
   <app-navbar></app-navbar>
 
-  <div class="container">
-    <h2>Liste des Utilisateurs</h2>
-    <div *ngIf="users.length === 0">Aucun utilisateur trouvé.</div>
-    <table *ngIf="users.length > 0" class="user-table">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Email</th>
-          <th>Type</th>
-          <th>Derniere_Connexion</th>
-          <th>Statut</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.nom }}</td>
-          <td>{{ user.prenom }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.type }}</td>
-          <td>{{ user.active }}</td>
-          <td>{{ user.active ? 'Actif' : 'Inactif' }}</td>
-          <td>
-            <button *ngIf="!user.active" (click)="activateUser(user.id)">Activer</button>
-            <button *ngIf="user.active" (click)="deactivateUser(user.id)">Désactiver</button>
-            <button (click)="deleteUser(user.id)" style="color: red;">Supprimer</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+ 
 </div>

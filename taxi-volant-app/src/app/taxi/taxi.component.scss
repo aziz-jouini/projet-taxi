@@ -1,0 +1,226 @@
+/* Style général de la page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Prendre toute la hauteur de l'écran */
+  overflow: hidden;
+}
+
+/* Style pour la sidebar */
+app-sidebar {
+  width: 30px;
+  color: white;
+  height: calc(100% - 40px); /* Prendre toute la hauteur de la fenêtre moins la navbar */
+  position: fixed;
+  left: 0px; /* Légère marge à gauche de la page */
+  top: 0px; /* Commence après la navbar */
+  padding-top: 0px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour le composant navbar */
+app-navbar {
+  width: calc(100% - 30px); /* Prendre toute la largeur, en laissant de la place pour la sidebar */
+  background-color: #343a40; /* Couleur gris foncé */
+  color: white;
+  padding: 5px 20px;
+  position: fixed;
+  top: 0;
+  left: 289; /* Évite la marge à gauche pour couvrir toute la largeur disponible */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Accentuer légèrement l'ombre */
+}
+
+/* Conteneur principal de la page */
+.container {
+  margin-left: 100px;
+  margin-top: 100px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Contenu centré */
+.centered-content {
+  background-color: #ffffff;
+  padding: 200px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Style pour le tableau */
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse; 
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+  padding: 15px; 
+  text-align: left; 
+  border-bottom: 1px solid #dee2e6; 
+}
+
+.table th {
+  background-color: #0062cc; 
+  color: white; 
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef; 
+}
+
+/* Style pour le popup */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; 
+}
+
+.popup-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 450px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* Styles pour le bouton de fermeture du popup */
+.close-button {
+  background: none;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  color: #dc3545;
+}
+
+/* Autres styles pour le formulaire d'ajout de taxi */
+.popup-content h2 {
+  margin-bottom: 20px; 
+  color: #0062cc; 
+}
+
+.form-group {
+  margin-bottom: 20px; 
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px; 
+  border: 1px solid #ced4da; 
+  font-size: 16px;
+}
+
+.form-control:focus {
+  border-color: #0062cc; 
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); 
+  outline: none;
+}
+
+.btn-success, .btn-info, .btn-warning, .btn-danger {
+  border: none;
+  border-radius: 8px; 
+  padding: 10px 20px; 
+  color: white; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success {
+  background-color: #28a745; 
+}
+
+.btn-success:hover {
+  background-color: #218838; 
+}
+
+.btn-info {
+  background-color: #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.add-taxi-button {
+  background-color: #0062cc;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.add-taxi-button:hover {
+  background-color: #0056b3;
+}
+
+.taxi-photo {
+  width: 60px;
+  height: auto;
+  border-radius: 5px; 
+}
+
+/* Style pour les popups de visualisation/modification */
+.popup-content img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}

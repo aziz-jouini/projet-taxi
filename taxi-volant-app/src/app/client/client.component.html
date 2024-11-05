@@ -1,1 +1,99 @@
 <app-sidebar></app-sidebar>
+<app-navbar></app-navbar>
+
+<div class="content-container">
+  <div *ngIf="isLoading" class="loading-container">
+    Loading available taxis...
+  </div>
+
+  <div *ngIf="!isLoading">
+    <h2>Available Taxis</h2>
+    <table class="taxi-table">
+      <thead>
+        <tr>
+          <th>Taxi ID</th>
+         
+          <th>Reservation Status</th>
+          <th>Owner Name</th>
+          <th>id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let taxi of availableTaxis">
+          <td>{{ taxi.id }}</td>
+        
+          <td>{{ taxi.en_reservation ? 'Reserved' : 'Available' }}</td>
+          <td>{{ taxi.proprietaire_nom }} {{ taxi.proprietaire_prenom }}</td>
+          <td>{{ taxi.proprietaire_id }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="openReservationModal()">Make a Reservation</button>
+  </div>
+  <div *ngIf="showReservationModal" class="modal">
+    <div class="modal-content">
+      <span (click)="closeReservationModal()" class="close">&times;</span>
+      <h2>Reserve a Taxi</h2>
+  
+      <!-- Weather Information -->
+      <div *ngIf="weatherData" class="weather-info">
+        <h3>Current Weather</h3>
+        <div class="weather-details">
+          <img *ngIf="weatherData.icon" 
+               [src]="'https://openweathermap.org/img/wn/' + weatherData.icon + '@2x.png'" 
+               alt="Weather Icon" />
+          <p>{{ weatherData.description }}</p>
+          <p>Temperature: {{ weatherData.temperature }}°C</p>
+        </div>
+      </div>
+  
+      <!-- Taxi Selection -->
+      <div>
+        <label for="taxi">Select Taxi:</label>
+        <select id="taxi" [(ngModel)]="selectedTaxi">
+          <option *ngFor="let taxi of availableTaxis" [ngValue]="taxi.id">
+            {{ taxi.proprietaire_nom }} {{ taxi.proprietaire_prenom }} (Owner ID: {{ taxi.proprietaire_id }}, Taxi ID: {{ taxi.id }})
+          </option>
+        </select>
+      </div>
+      
+  
+      <!-- Pickup Location -->
+      <div>
+        <label for="pickup">Pickup Location:</label>
+        <input type="text" id="pickup" [(ngModel)]="pickupLocation" disabled />
+      </div>
+  
+      <!-- Destination Input -->
+      <div>
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" [(ngModel)]="destination" placeholder="Enter your destination" required />
+      </div>
+  
+      <!-- Reservation Button -->
+      <button (click)="submitReservation()" [disabled]="!destination">Reserve Taxi</button>
+      
+      <!-- Small Map Display -->
+      <div id="small-map" style="height: 300px; margin-top: 20px;"></div>
+  
+      <!-- Route Details Display -->
+      <div *ngIf="routeDetails" class="route-details">
+        <h3>Route Details</h3>
+        <p>{{ routeDetails }}</p>
+      </div>
+  
+      <!-- Travel Cost Display -->
+      <div *ngIf="travelCost">
+        <h3>Estimated Travel Cost</h3>
+        <p>Travel Cost: {{ travelCost | currency:'USD':'symbol' }}</p>
+       
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+
+</div>

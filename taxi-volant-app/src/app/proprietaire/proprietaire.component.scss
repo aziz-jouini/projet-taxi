@@ -1,0 +1,217 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Prendre toute la hauteur de l'écran */
+    overflow: hidden;
+  }
+  
+  /* Style pour la sidebar */
+  app-sidebar {
+    width: 30px;
+    color: white;
+    height: calc(100% - 40px); /* Prendre toute la hauteur de la fenêtre moins la navbar */
+    position: fixed;
+    left: 0px; /* Légère marge à gauche de la page */
+    top: 0px; /* Commence après la navbar */
+    padding-top: 0px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style pour le composant navbar */
+  app-navbar {
+    width: calc(100% - 30px); /* Prendre toute la largeur, en laissant de la place pour la sidebar */
+    background-color: #343a40; /* Couleur gris foncé */
+    color: white;
+    padding: 5px 20px;
+    position: fixed;
+    top: 0;
+    left: 289; /* Évite la marge à gauche pour couvrir toute la largeur disponible */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Accentuer légèrement l'ombre */
+  }
+  
+  /* Container principal qui tient compte de la sidebar */
+  .container {
+    margin-left: 200px; /* Marge à gauche pour laisser de la place à la sidebar */
+    margin-top: 70px; /* Espace après la navbar */
+    width: calc(100% - 200px); /* Prendre toute la largeur disponible après la sidebar */
+    height: calc(100vh - 70px); /* Prendre la hauteur de la fenêtre moins la navbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  /* Contenu centré */
+  .centered-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 800px; /* Ajustez la largeur maximale si nécessaire */
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse; 
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th, .table td {
+    padding: 15px; 
+    text-align: left; 
+    border-bottom: 1px solid #dee2e6; 
+  }
+  
+  .table th {
+    background-color: #0062cc; 
+    color: white; 
+    font-weight: bold;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; 
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e9ecef; 
+  }
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .popupp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Fond sombre avec opacité */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .popupp-content {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Largeur adaptée */
+    max-width: 600px; /* Largeur maximale du popup */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    overflow-y: auto; /* Scroll si contenu trop long */
+    animation: scaleUp 0.3s ease-in-out;
+  }
+  
+  /* Titre du popup */
+  .popupp-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #0062cc;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* Style de la liste des taxis */
+  .popupp-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .popupp-content li {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .popupp-content li span {
+    font-weight: bold;
+  }
+  
+  .popupp-content li:not(:last-child) {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .popupp-content li:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Style des boutons */
+  .popupp-content button {
+    background-color: #0062cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .popupp-content button:hover {
+    background-color: #0056b3;
+  }
+  
+  .popupp-content button.close {
+    background-color: red;
+    margin-left: 10px;
+  }
+  
+  .popupp-content button.close:hover {
+    background-color: darkred;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleUp {
+    from {
+      transform: scale(0.8);
+    }
+    to {
+      transform: scale(1);
+    }
+  }

@@ -1,63 +1,196 @@
-/* Style général de la page */
+/* General body styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Prendre toute la hauteur de l'écran */
-    overflow: hidden;
-  }
-  
-  /* Style pour le composant sidebar */
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar styling */
+app-sidebar {
+  width: 60px; /* Slightly wider for better accessibility */
+  background-color: #343a40;
+  color: white;
+  height: calc(100% - 40px);
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s; /* Smooth transition for sidebar width */
+}
+
+/* Navbar styling */
+app-navbar {
+  width: calc(100% - 60px);
+  background-color: #343a40;
+  color: white;
+  padding: 10px 20px; /* Increased padding for a better touch target */
+  position: fixed;
+  top: 0;
+  left: 60px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Content container styling */
+.content-container {
+  margin-top: 50px; /* Adjusted for better spacing */
+  margin-left: 60px; /* Adjusted to match sidebar width */
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Changed to flex-start for natural flow */
+  overflow: auto;
+  padding: 20px; /* Added padding for better aesthetics */
+}
+
+/* Loading container styling */
+.loading-container {
+  font-size: 1.5rem;
+  color: #555;
+  text-align: center; /* Centered loading text */
+}
+
+/* Table styling */
+.taxi-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Spacing above the table */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* To round corners of the table */
+}
+
+/* Table header and cell styling */
+.taxi-table th,
+.taxi-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.taxi-table th {
+  background-color: #007bff; /* Changed header color for better visibility */
+  color: white;
+}
+
+/* Button styling */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 24px; /* Increased padding for better touch target */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal styling */
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px; /* Increased padding */
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+/* Close button styling */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: red;
+}
+
+/* Map container styling */
+.map-container {
+  height: 300px;
+  margin-bottom: 20px;
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Clip content to rounded edges */
+}
+
+/* Map styling */
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Route details styling */
+.route-details {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #333; /* Darker text for better readability */
+}
+
+/* Weather info styling */
+.weather-info {
+  margin-top: 20px;
+}
+
+.weather-details img {
+  width: 50px; /* Resize weather icon */
+  height: auto;
+}
+
+/* Travel cost display styling */
+.travel-cost {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #28a745; /* Green color for cost */
+}
+
+/* Recommended Taxi ID styling */
+.recommended-taxi {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #e7f3fe; /* Light blue background for recommendation */
+  border: 1px solid #b3d7ff; /* Light blue border */
+  border-radius: 5px;
+  color: #31708f; /* Darker blue text for better contrast */
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
   app-sidebar {
-    width: 30px;
-    color: white;
-    height: calc(100% - 40px); /* Prendre toute la hauteur de la fenêtre moins la navbar */
-    position: fixed;
-    left: 0px; /* Légère marge à gauche de la page */
-    top: 0px; /* Commence après la navbar */
-    padding-top: 0px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    width: 50px; /* Responsive sidebar width */
   }
-  
-  /* Style pour le composant navbar */
+
   app-navbar {
-    width: calc(100% - 30px); /* Prendre toute la largeur, en laissant de la place pour la sidebar */
-    background-color: #343a40; /* Couleur gris foncé */
-    color: white;
-    padding: 5px 20px;
-    position: fixed;
-    top: 0;
-    left: 30px; /* Commence après la sidebar */
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Accentuer légèrement l'ombre */
+    width: calc(100% - 50px);
+    left: 50px; /* Adjust navbar position */
   }
-  
-  /* Nom de l'application dans la navbar */
-  .app-name {
-    font-size: 22px;
-    font-weight: bold;
-    color: #ffc107; /* Couleur jaune pour démarquer le titre */
+
+  .content-container {
+    margin-left: 50px; /* Match content container to sidebar */
   }
-  
-  /* Bouton de déconnexion dans la navbar */
-  .logout-button {
-    background-color: #28a745; /* Couleur verte */
-    color: white; /* Texte en blanc */
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  /* Effet de survol pour le bouton de déconnexion */
-  .logout-button:hover {
-    background-color: #218838; /* Couleur verte plus foncée au survol */
-  }
-  
+}

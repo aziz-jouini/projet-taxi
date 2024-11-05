@@ -14,6 +14,10 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { TaxiComponent } from './taxi/taxi.component';
+import { ListTaxisComponent } from './list-taxis/list-taxis.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +30,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     SidebarComponent,
     ProfileComponent,
     NavbarComponent,
+    UtilisateursComponent,
+    TaxiComponent,
+    ListTaxisComponent,
     
   ],
   imports: [
@@ -33,7 +40,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    
   ],
   providers: [
     {

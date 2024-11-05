@@ -11,6 +11,9 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/an
 export class LoginComponent implements OnInit {
   email = '';
   mot_de_passe = '';
+  forgotEmail = '';
+  newPassword = '';
+  isModalOpen = false;
   user: SocialUser | null = null;
 
   constructor(
@@ -24,10 +27,8 @@ export class LoginComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       if (this.user) {
-        // Envoyer le token Google au backend pour vérification
         this.apiService.verifyGoogleUser(this.user).subscribe(
           (response) => {
-            // Rediriger l'utilisateur selon son type
             if (response.userType === 'admin') {
               this.router.navigate(['/admin']);
             } else if (response.userType === 'client') {
@@ -45,7 +46,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Fonction pour se connecter avec email et mot de passe
   onSubmit() {
     const credentials = {
       email: this.email,
@@ -57,14 +57,10 @@ export class LoginComponent implements OnInit {
         console.log('Connexion réussie', response);
         const token = response.token;
 
-        // Stocker le token dans le localStorage
         localStorage.setItem('token', token);
-
-        // Décoder le token pour obtenir les informations de l'utilisateur
         const decodedToken = this.decodeToken(token);
         const userType = decodedToken.type;
 
-        // Rediriger l'utilisateur en fonction de son type
         if (userType === 'admin') {
           this.router.navigate(['/admin']);
         } else if (userType === 'client') {
@@ -80,12 +76,43 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  // Méthode pour se connecter avec Google
+  openForgotPasswordModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.forgotEmail = '';
+    this.newPassword = '';
+  }
+
+  resetPassword() {
+    if (!this.forgotEmail || !this.newPassword) {
+      alert('Veuillez remplir tous les champs.');
+      return;
+    }
+
+    const resetData = {
+      email: this.forgotEmail,
+      newPassword: this.newPassword
+    };
+
+    this.apiService.resetPassword(resetData).subscribe(
+      response => {
+        alert('Mot de passe réinitialisé avec succès.');
+        this.closeModal();
+      },
+      error => {
+        console.error('Erreur lors de la réinitialisation du mot de passe', error);
+        alert('Erreur lors de la réinitialisation du mot de passe.');
+      }
+    );
+  }
+
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  // Fonction pour décoder un token JWT
   decodeToken(token: string) {
     const payload = token.split('.')[1];
     return JSON.parse(atob(payload));

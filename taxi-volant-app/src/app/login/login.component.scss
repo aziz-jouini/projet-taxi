@@ -1,151 +1,210 @@
 /* Styles pour le message animé */
 .message-container {
-    position: relative;
-    width: 100%;
-    height: 50px; /* Hauteur du conteneur du message */
-    overflow: hidden;
-    background-color: #007bff; /* Couleur de fond pour le message */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: slideContainer 20s linear infinite; /* Animation infinie du conteneur */
-  }
-  
-  .animated-message {
-    white-space: nowrap;
-    color: #fff; /* Couleur du texte */
-    font-size: 1.5rem; /* Taille de la police */
-    animation: slideMessage 20s linear infinite; /* Animation infinie du message */
-  }
-  
-  @keyframes slideContainer {
-    0% {
+  position: relative;
+  width: 100%;
+  height: 50px; /* Hauteur du conteneur du message */
+  overflow: hidden;
+  background-color: #007bff; /* Couleur de fond pour le message */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideContainer 20s linear infinite; /* Animation infinie du conteneur */
+}
+
+.animated-message {
+  white-space: nowrap;
+  color: #fff; /* Couleur du texte */
+  font-size: 1.5rem; /* Taille de la police */
+  animation: slideMessage 20s linear infinite; /* Animation infinie du message */
+}
+
+@keyframes slideContainer {
+  0% {
       transform: translateX(100%); /* Commence à droite */
-    }
-    50% {
+  }
+  50% {
       transform: translateX(-100%); /* Passe à gauche */
-    }
-    100% {
+  }
+  100% {
       transform: translateX(100%); /* Retourne à droite */
-    }
   }
-  
-  @keyframes slideMessage {
-    0% {
+}
+
+@keyframes slideMessage {
+  0% {
       transform: translateX(0); /* Position initiale */
-    }
-    50% {
+  }
+  50% {
       transform: translateX(-100%); /* Déplace le message vers la gauche */
-    }
-    100% {
+  }
+  100% {
       transform: translateX(0); /* Retourne à la position initiale */
-    }
   }
-  
-  /* Autres styles (inchangés) */
-  body {
-    background-color: #87CEEB; /* Couleur bleu ciel */
-    margin: 0; /* Supprimer les marges par défaut */
-    font-family: Arial, sans-serif; /* Définir une police de base */
-  }
-  
-  .login-container {
-    max-width: 1000px; /* Largeur maximale du conteneur */
-    margin: 80px auto; /* Centrer horizontalement */
-    padding: 20px; /* Padding pour le conteneur */
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre */
-    background-color: #f9f9f9; /* Changer la couleur de fond */
-    animation: fadeIn 1s ease-in-out; /* Animation d'apparition */
-  }
-  
-  .welcome-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem; /* Augmenter la taille de police */
-    color: #007bff; /* Ajouter une couleur vive pour attirer l'attention */
-  }
-  
-  .login-prompt {
-    text-align: center;
-    margin-bottom: 20px;
-    font-style: italic; /* Ajouter du style pour rendre le texte distinctif */
-  }
-  
-  .content-wrapper {
-    display: flex; /* Utiliser Flexbox pour aligner le contenu */
-    justify-content: space-between; /* Répartir l'espace entre les éléments */
-    align-items: center; /* Aligner les éléments verticalement au centre */
-    width: 100%; /* Utiliser toute la largeur du conteneur */
-  }
-  
-  .login-image {
-    flex: 1; /* Diviser l'espace de manière égale */
-    max-width: 50%; /* Assurer que l'image ne dépasse pas la moitié de l'espace */
-    height: auto; /* Garder les proportions de l'image */
-    margin-right: 20px; /* Ajouter un espacement entre l'image et le formulaire */
-    animation: float 3s ease-in-out infinite; /* Ajouter une animation de flottement */
-  }
-  
-  .login-form {
-    flex: 1; /* Diviser l'espace de manière égale */
-    display: flex;
-    flex-direction: column; /* Afficher les éléments du formulaire verticalement */
-    width: 100%;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-    width: 100%; /* Utiliser toute la largeur disponible */
-  }
-  
-  input {
-    width: 100%; /* Utiliser toute la largeur disponible */
-    padding: 10px; /* Ajouter du padding */
-    border: 1px solid #ccc; /* Bordure */
-    border-radius: 5px; /* Coins arrondis */
-    transition: border-color 0.3s ease; /* Ajouter une transition pour les changements de bordure */
-  }
-  
-  input:focus {
-    border-color: #007bff; /* Changer la couleur de bordure lorsque l'élément est focalisé */
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Ajouter une transition pour l'animation */
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); /* Agrandir légèrement le bouton au survol */
-  }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    from {
+}
+
+/* Autres styles (inchangés) */
+/* Arrière-plan pour la page entière */
+body {
+  /* Chemin vers l'image */
+  background-size: cover; /* Ajuste la taille pour couvrir toute la page */
+  background-position: center; /* Centre l'image */
+  background-repeat: no-repeat; /* Évite la répétition */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh; /* Assure que le background couvre l'écran */
+}
+
+.login-container {
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+
+.welcome-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem; /* Augmenter la taille de police */
+  color: #007bff; /* Ajouter une couleur vive pour attirer l'attention */
+}
+
+.login-prompt {
+  text-align: center;
+  margin-bottom: 20px;
+  font-style: italic; /* Ajouter du style pour rendre le texte distinctif */
+}
+
+.content-wrapper {
+  display: flex; /* Utiliser Flexbox pour aligner le contenu */
+  justify-content: space-between; /* Répartir l'espace entre les éléments */
+  align-items: center; /* Aligner les éléments verticalement au centre */
+  width: 100%; /* Utiliser toute la largeur du conteneur */
+}
+
+.login-image {
+  flex: 1; /* Diviser l'espace de manière égale */
+  max-width: 50%; /* Assurer que l'image ne dépasse pas la moitié de l'espace */
+  height: auto; /* Garder les proportions de l'image */
+  margin-right: 20px; /* Ajouter un espacement entre l'image et le formulaire */
+  animation: float 3s ease-in-out infinite; /* Ajouter une animation de flottement */
+}
+
+.login-form {
+  flex: 1; /* Diviser l'espace de manière égale */
+  display: flex;
+  flex-direction: column; /* Afficher les éléments du formulaire verticalement */
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 100%; /* Utiliser toute la largeur disponible */
+}
+
+input {
+  width: 100%; /* Utiliser toute la largeur disponible */
+  padding: 10px; /* Ajouter du padding */
+  border: 1px solid #ccc; /* Bordure */
+  border-radius: 5px; /* Coins arrondis */
+  transition: border-color 0.3s ease; /* Ajouter une transition pour les changements de bordure */
+}
+
+input:focus {
+  border-color: #007bff; /* Changer la couleur de bordure lorsque l'élément est focalisé */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Ajouter une transition pour l'animation */
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Agrandir légèrement le bouton au survol */
+}
+
+/* Nouvelle classe pour l'espacement entre le bouton et le lien mot de passe oublié */
+.password-reset {
+  margin-top: 10px; /* Ajustez la valeur selon vos besoins */
+  text-align: center; /* Centrer le texte si nécessaire */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
       opacity: 0;
       transform: translateY(-20px);
-    }
-    to {
+  }
+  to {
       opacity: 1;
       transform: translateY(0);
-    }
   }
-  
-  @keyframes float {
-    0%, 100% {
+}
+
+@keyframes float {
+  0%, 100% {
       transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
   }
-  
+  50% {
+      transform: translateY(-10px);
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.icon-container {
+  display: flex; /* Utiliser Flexbox pour centrer */
+  justify-content: center; /* Centrer horizontalement */
+  margin-bottom: 20px; /* Espacement entre l'icône et le formulaire */
+}
+
+.icon {
+  width: 200px; /* Ajuster la taille de l'icône */
+  height: auto; /* Garder les proportions */
+  border: 5px solid #3498db; /* Contour de 5px avec une couleur bleue */
+  border-radius: 5px; /* Coins arrondis */
+  padding: 5px; /* Espacement à l'intérieur du contour */
+  background-color: #fff; /* Couleur de fond pour l'image */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre portée */
+  transition: transform 0.3s ease; /* Transition pour l'effet au survol */
+}
+
+.icon:hover {
+  transform: scale(1.05); /* Légèrement agrandir l'image au survol */
+}

@@ -6,6 +6,9 @@ import { AdminComponent } from './admin/admin.component';
 import { ClientComponent } from './client/client.component';
 import { ProprietaireComponent } from './proprietaire/proprietaire.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { TaxiComponent } from './taxi/taxi.component';
+import { ListTaxisComponent } from './list-taxis/list-taxis.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },  // Page d'accueil par défaut
@@ -14,7 +17,10 @@ const routes: Routes = [
   { path: 'client', component: ClientComponent },
   { path: 'proprietaire', component: ProprietaireComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: '**', redirectTo: '' }, 
+  { path: 'utilisateurs', component: UtilisateursComponent },
+  { path: 'taxi', component: TaxiComponent },
+  { path: 'liste-taxi', component: ListTaxisComponent},
+  { path: '**', redirectTo: '' } 
   
 ];
 

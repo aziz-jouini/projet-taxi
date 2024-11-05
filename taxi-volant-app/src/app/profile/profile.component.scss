@@ -1,78 +1,120 @@
-/* Style général de la container */
+/* General Page Style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Sidebar Component Style */
+  app-sidebar {
+    width: 30px;
+    color: white;
+    height: calc(100% - 40px); /* Prendre toute la hauteur de la fenêtre moins la navbar */
+    position: fixed;
+    left: 0px; /* Légère marge à gauche de la page */
+    top: 0px; /* Commence après la navbar */
+    padding-top: 0px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style pour le composant navbar */
+  app-navbar {
+    width: calc(100% - 30px); /* Prendre toute la largeur, en laissant de la place pour la sidebar */
+    background-color: #343a40; /* Couleur gris foncé */
+    color: white;
+    padding: 5px 20px;
+    position: fixed;
+    top: 0;
+    left: 289; /* Évite la marge à gauche pour couvrir toute la largeur disponible */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Accentuer légèrement l'ombre */
+  }
+  
+  /* Application Name in Navbar */
+  .app-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffc107;
+  }
+  
+  /* Logout Button in Navbar */
+  .logout-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Main Container Style */
+ /* Main Container Style */
 .container {
-    display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
-    align-items: flex-start; /* Alignement en haut */
-    margin: 20px; /* Marges autour du conteneur */
-}
-
-/* Style général du formulaire */
-.profile-form {
-    max-width: 600px; /* Largeur maximale du formulaire */
-    margin: 20px auto; /* Centrage horizontal et marge verticale */
-    padding: 20px; /* Espacement interne */
-    background-color: #f8f9fa; /* Couleur de fond claire */
-    border-radius: 8px; /* Coins arrondis */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre autour du formulaire */
-    flex: 2; /* Permet au formulaire de prendre 2/3 de l'espace disponible */
-}
-
-/* Style des groupes de formulaires */
-.form-group {
-    margin-bottom: 15px; /* Espacement entre les groupes de champs */
-}
-
-/* Style des étiquettes */
-label {
-    font-weight: bold; /* Texte en gras */
-    margin-bottom: 5px; /* Espacement sous les étiquettes */
-    display: block; /* Affichage en bloc pour occuper toute la largeur */
-}
-
-/* Style des champs de saisie */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select {
-    width: 100%; /* Largeur à 100% pour occuper tout l'espace disponible */
-    padding: 10px; /* Espacement interne */
-    border: 1px solid #ced4da; /* Bordure grise */
-    border-radius: 4px; /* Coins arrondis */
-    transition: border-color 0.2s; /* Animation de changement de couleur de bordure */
-}
-
-/* Changement de style lorsque le champ est en focus */
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-select:focus {
-    border-color: #007bff; /* Changer la couleur de bordure en bleu */
-    outline: none; /* Enlever le contour par défaut */
-}
-
-/* Style du bouton de soumission */
-button[type="submit"] {
-    background-color: #007bff; /* Couleur de fond bleu */
-    color: white; /* Couleur du texte blanche */
-    padding: 10px 15px; /* Espacement interne */
-    border: none; /* Pas de bordure */
-    border-radius: 4px; /* Coins arrondis */
-    cursor: pointer; /* Curseur en forme de main */
-    transition: background-color 0.2s; /* Animation de changement de couleur de fond */
-}
-
-/* Changement de style lorsque le bouton est survolé */
-button[type="submit"]:hover {
-    background-color: #0056b3; /* Couleur de fond plus foncée au survol */
-}
-
-/* Style des messages d'erreur */
-.error-message {
-    color: red; /* Couleur rouge pour les messages d'erreur */
-    font-size: 14px; /* Taille de police réduite */
-}
-
-/* Style de la barre latérale */
-app-sidebar {
-    flex: 1; /* Permet à la barre latérale de prendre 1/3 de l'espace disponible */
-    max-width: 250px; /* Largeur maximale pour la barre latérale */
-}
+    margin-left: 200px; /* Sidebar width */
+    margin-top: 100px; /* Increased margin to add more space between navbar and form */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 200px);
+    height: calc(100% - 80px);
+    overflow-y: auto;
+  }
+  
+  /* Profile Form Style */
+  .profile-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    margin: auto; /* Center horizontally */
+  }
+  
+  /* Form Group Style */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Form Labels */
+  form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* Submit Button Style */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
